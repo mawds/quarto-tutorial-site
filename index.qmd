@@ -1,7 +1,6 @@
 ---
-title: "quarto-tutorial-site"
+title: "Tutorials in Quarto"
 ---
 
-This is a Quarto website.
+This site is a proof of concept of hosting tutorials using Quarto, Python, Julia and notebooks (and possibly Binder too)
 
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.

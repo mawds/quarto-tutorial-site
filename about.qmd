@@ -2,4 +2,5 @@
 title: "About"
 ---
 
-About this site
+This is a test of using Quarto to host tutorials/walkthroughs in Python and Julia
+
