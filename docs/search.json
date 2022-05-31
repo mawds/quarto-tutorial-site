@@ -7,6 +7,13 @@
     "text": "This is a test of using Quarto to host tutorials/walkthroughs in Python and Julia"
   },
   {
+    "objectID": "python_tutorials/python_example.html",
+    "href": "python_tutorials/python_example.html",
+    "title": "Python Notebook demo",
+    "section": "",
+    "text": "This notebook uses a Jupyter notebook to produce this page. This was written/edited using vscode\n\n\n(Most of this is vscode specific)\nFrom the terminal create a virtual environment in the python_tutorials directory:\npython -m venv venv\nsource venv/bin/activate\nInstall required modules:\npython -m pip install jupyter ipykernel jupyterlab\n(restart vscode if you did the above in a vscode terminal)\nLoad/create the notebook and set the notebook kernel to the vnenv you’ve created (button at the top right of the notebook)\n\n\n\nThis is just cut and pasted from https://jgori-ouistiti.github.io/CoopIHC/guide/learning.html\nI couldn’t get most of the examples to work in the documentation\n\n\nCode\nfrom coopihc.examples.simplepointing.envs import SimplePointingTask\nfrom coopihc.examples.simplepointing.users import CarefulPointer\nfrom coopihc.examples.simplepointing.assistants import ConstantCDGain\nfrom coopihc import State, Bundle\n\n\ntask = SimplePointingTask(gridsize=31, number_of_targets=8)\n\nunitcdgain = ConstantCDGain(1)\n\n\n# The policy to be trained has the simple action set [-5,-4,-3,-2,-1,0,1,2,3,,4,5]\n\naction_state = State()\n\naction_state[\"action\"] = discrete_array_element(low=-5, high=5)\n\n\nuser = CarefulPointer(override_policy=(BasePolicy, {\"action_state\": action_state}))\n\nbundle = Bundle(task=task, user=user, assistant=unitcdgain, reset_go_to=1)\n\nobservation = bundle.reset()\n\n\n\n\nCode\nprint(observation)\n\n\n----------------  -----------  -------------------------  -------------------\ngame_info         turn_index   1                          CatSet(4) - int8\n                  round_index  0                          Numeric() - int64\ntask_state        position     10                         Numeric() - int64\n                  targets      [ 1  5  7 13 14 15 19 22]  Numeric(8,) - int64\nuser_state        goal         15                         Numeric() - int64\nuser_action       action       0                          Numeric() - int64\nassistant_action  action       1                          CatSet(2) - int64\n----------------  -----------  -------------------------  -------------------"
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Tutorials in Quarto",
