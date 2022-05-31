@@ -4,13 +4,13 @@
     "href": "about.html",
     "title": "About",
     "section": "",
-    "text": "About this site"
+    "text": "This is a test of using Quarto to host tutorials/walkthroughs in Python and Julia"
   },
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "quarto-tutorial-site",
+    "title": "Tutorials in Quarto",
     "section": "",
-    "text": "To learn more about Quarto websites visit https://quarto.org/docs/websites."
+    "text": "This site is a proof of concept of hosting tutorials using Quarto, Python, Julia and notebooks (and possibly Binder too)"
   }
 ]
