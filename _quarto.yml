@@ -3,7 +3,7 @@ project:
   output-dir: docs
 
 website:
-  title: "quarto-tutorial-site"
+  title: "Tutorial test using Quarto"
   navbar:
     background: primary
     left:
