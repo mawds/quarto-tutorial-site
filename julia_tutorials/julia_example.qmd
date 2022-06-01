@@ -1,0 +1,30 @@
+---
+title: Julia / Quarto example
+author: David Mawdsley
+date: 2022-06-01
+format: html
+jupyter: julia-1.7
+---
+
+# Julia example
+
+This uses the example from the [Quarto homepage](https://www.quarto.org)
+
+## Parametric Plots
+
+Plot function pair (x(u), y(u)). 
+See @fig-parametric for an example.
+
+```{julia}
+#| label: fig-parametric
+#| fig-cap: "Parametric Plots"
+
+using Plots
+
+plot(sin, 
+     x->sin(2x), 
+     0, 
+     2π, 
+     leg=false, 
+     fill=(0,:lavender))
+```

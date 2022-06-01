@@ -25,6 +25,13 @@
     "href": "index.html",
     "title": "Available tutorials",
     "section": "",
-    "text": "Available posts:\n\n\n\n\n\n\n\n\n  \n\n\n\n\nPython Notebook demo\n\n\n\n\n\n\n\n\n\n\n\n\nMay 31, 2022\n\n\nDavid Mawdsley\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nQuarto document\n\n\n\n\n\n\n\n\n\n\n\n\nJun 1, 2022\n\n\nDavid Mawdsley\n\n\n\n\n\n\nNo matching items"
+    "text": "Available posts:\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nJulia / Quarto example\n\n\n\n\n\n\n\n\n\n\n\n\nJun 1, 2022\n\n\nDavid Mawdsley\n\n\n\n\n\n\n  \n\n\n\n\nPython Notebook demo\n\n\n\n\n\n\n\n\n\n\n\n\nMay 31, 2022\n\n\nDavid Mawdsley\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nQuarto document\n\n\n\n\n\n\n\n\n\n\n\n\nJun 1, 2022\n\n\nDavid Mawdsley\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "julia_tutorials/julia_example.html",
+    "href": "julia_tutorials/julia_example.html",
+    "title": "Julia / Quarto example",
+    "section": "",
+    "text": "This uses the example from the Quarto homepage\n\n\nPlot function pair (x(u), y(u)). See Figure 1 for an example.\n\nusing Plots\n\nplot(sin, \n     x->sin(2x), \n     0, \n     2π, \n     leg=false, \n     fill=(0,:lavender))\n\n\n\n\nFigure 1: Parametric Plots"
   }
 ]
