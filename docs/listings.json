@@ -2,6 +2,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/julia_tutorials/julia_example.html",
       "/python_tutorials/python_example.html",
       "/python_tutorials/quartomarkdown.html"
     ]
