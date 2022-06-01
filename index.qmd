@@ -2,5 +2,15 @@
 title: "Tutorials in Quarto"
 ---
 
-This site is a proof of concept of hosting tutorials using Quarto, Python, Julia and notebooks (and possibly Binder too)
+This site is a proof of concept of hosting tutorials using Quarto, Python, Julia and notebooks.
 
+Available posts:
+
+---
+title: "Available tutorials"
+listing:
+  contents:
+    - "python_tutorials/*.qmd"
+    - "python_tutorials/*.ipynb"
+    - "julia_tutorials/*.qmd"
+---
