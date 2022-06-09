@@ -159,6 +159,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <ul>
   <li><a href="#this-uses-the-elfi-demo-from-here" id="toc-this-uses-the-elfi-demo-from-here" class="nav-link active" data-scroll-target="#this-uses-the-elfi-demo-from-here">This uses the <span>ELFI</span> demo from <span>here</span></a>
   <ul class="collapse">
+  <li><a href="#notebook-setup" id="toc-notebook-setup" class="nav-link" data-scroll-target="#notebook-setup">Notebook Setup</a>
+  <ul class="collapse">
+  <li><a href="#rendering-your-notebook-using-quarto" id="toc-rendering-your-notebook-using-quarto" class="nav-link" data-scroll-target="#rendering-your-notebook-using-quarto">Rendering your notebook using quarto</a></li>
+  </ul></li>
+  <li><a href="#use-of-binder" id="toc-use-of-binder" class="nav-link" data-scroll-target="#use-of-binder">Use of binder</a></li>
   <li><a href="#notes" id="toc-notes" class="nav-link" data-scroll-target="#notes">Notes</a></li>
   </ul></li>
   <li><a href="#quickstart" id="toc-quickstart" class="nav-link" data-scroll-target="#quickstart">Quickstart</a></li>
@@ -198,24 +203,41 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <section id="this-uses-the-elfi-demo-from-here" class="level1">
 <h1>This uses the <a href="">ELFI</a> demo from <a href="https://github.com/elfi-dev/notebooks/blob/master/quickstart.ipynb">here</a></h1>
-<p>To setup a notebook page in quarto:</p>
+<section id="notebook-setup" class="level2">
+<h2 class="anchored" data-anchor-id="notebook-setup">Notebook Setup</h2>
+<p>This section contains details of how to use jupyter notebooks within vscode.</p>
+<p>From the terminal create a virtual environment somewhere approporiate (I’ve used the <code>python_tutorials</code> directory, i.e.&nbsp;where the notebook is stored)</p>
+<pre class="{bash}"><code>python -m venv venv
+source venv/bin/activate</code></pre>
+<p>Install modules required:</p>
+<pre class="{bash}"><code>python -m pip install jupyter ipykernel jupyterlab</code></pre>
+<p>(restart vscode if you did the above in a vscode terminal, so it can pick up the libraries)</p>
+<p>If you’re using VScode: Load/create the notebook and set the notebook kernel to the vnenv you’ve created (button at the top right of the notebook)</p>
+<p>Install other libraries into the virtual environment as required (<code>python -m pip install numpy</code>, etc.)</p>
+<p>So others can use your notebooks… generate <code>requirements.txt</code> in the root of the repository: <code>pip freeze &gt;requirements.txt</code> (putting this in the repo root will mean Binder picks it up when building the binder image)</p>
+<p>As a new user of the notebook, you can then install the required libraries by activating your own virtual environment and installing the libraries with <code>pip install -r requirements.txt</code></p>
+<section id="rendering-your-notebook-using-quarto" class="level3">
+<h3 class="anchored" data-anchor-id="rendering-your-notebook-using-quarto">Rendering your notebook using quarto</h3>
+<p>To render the notebook use: <code>quarto render</code> (or <code>quarto render --execute</code> to re-run the cells in your notebook)</p>
+<p>Commit the resulting html files and push to github</p>
+</section>
+</section>
+<section id="use-of-binder" class="level2">
+<h2 class="anchored" data-anchor-id="use-of-binder">Use of binder</h2>
+<p>(This is optional and only needed if you’d like others to be able to play with the underlying notebook code in an interactive environment)</p>
 <ul>
-<li>Activate your virtual environment</li>
-<li>Install required libraries (<code>pip install -r requirements.txt</code> to use repository’s dependencies)</li>
-<li>If you want the user to be able to edit it in binder
-<ul>
-<li>generate <code>requirements.txt</code> in the root of the reporistory directory <code>pip freeze &gt;requirements.txt</code> (this will mean Binder picks it up when building the binder image)</li>
 <li>generate binder link: goto https://mybinder.org/ and fill in repo details and location of notebook</li>
-<li>paste the generated URL or markdown fragment into the notebook (or wherever)</li>
+<li>paste the generated URL or markdown fragment into your the notebook (or wherever)</li>
 <li>Note that the first time the binder is run it’ll take a while, as it has to build the environment and its dependencies. This is cached, so subsequent runs should be quicker</li>
-</ul></li>
 </ul>
+<p>Link to this notebook’s Binder:</p>
 <div id="fig-anonymous-1" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><a href="https://mybinder.org/v2/gh/mawds/quarto-tutorial-site/HEAD?labpath=python_tutorials%2Fquickstart.ipynb"><img src="https://mybinder.org/badge_logo.svg" class="img-fluid figure-img"></a></p>
+<p><a href="https://mybinder.org/v2/gh/mawds/quarto-binder-python/main?urlpath=git-pull%3Frepo%3Dhttps%253A%252F%252Fgithub.com%252Fmawds%252Fquarto-tutorial-site%26urlpath%3Dtree%252Fquarto-tutorial-site%252Fpython_tutorials%252Fquickstart.ipynb%26branch%3Dmain"><img src="https://mybinder.org/badge_logo.svg" class="img-fluid figure-img"></a></p>
 <p></p><figcaption aria-hidden="true" class="figure-caption">Binder</figcaption><p></p>
 </figure>
 </div>
+</section>
 <section id="notes" class="level2">
 <h2 class="anchored" data-anchor-id="notes">Notes</h2>
 <p>This notebook has <code>code-fold: true</code> to hide code by default; we can override this on a cell by cell basis with the special <code>#|</code> comment, e.g.&nbsp;<code>#|code-fold: false</code>.</p>
@@ -225,51 +247,51 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="quickstart" class="level1">
 <h1>Quickstart</h1>
 <p>First ensure you have <a href="http://elfi.readthedocs.io/en/stable/installation.html">installed</a> Python 3.5 (or greater) and ELFI. After installation you can start using ELFI:</p>
-<div class="cell" data-execution_count="15">
+<div class="cell" data-execution_count="1">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> elfi</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> elfi</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p>ELFI includes an easy to use generative modeling syntax, where the generative model is specified as a directed acyclic graph (DAG). Let’s create two prior nodes:</p>
 <blockquote class="blockquote">
 <p>we use the code-fold option discussed above, so the user can always see this code</p>
 </blockquote>
-<div class="cell" data-execution_count="16">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>mu <span class="op">=</span> elfi.Prior(<span class="st">'uniform'</span>, <span class="op">-</span><span class="dv">2</span>, <span class="dv">4</span>)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>sigma <span class="op">=</span> elfi.Prior(<span class="st">'uniform'</span>, <span class="dv">1</span>, <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>mu <span class="op">=</span> elfi.Prior(<span class="st">'uniform'</span>, <span class="op">-</span><span class="dv">2</span>, <span class="dv">4</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>sigma <span class="op">=</span> elfi.Prior(<span class="st">'uniform'</span>, <span class="dv">1</span>, <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The above would create two prior nodes, a uniform distribution from -2 to 2 for the mean <code>mu</code> and another uniform distribution from 1 to 5 for the standard deviation <code>sigma</code>. All distributions from <code>scipy.stats</code> are available.</p>
 <p>For likelihood-free models we typically need to define a simulator and summary statistics for the data. As an example, lets define the simulator as 30 draws from a Gaussian distribution with a given mean and standard deviation. Let’s use mean and variance as our summaries:</p>
-<div class="cell" data-execution_count="17">
+<div class="cell" data-execution_count="3">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy.stats <span class="im">as</span> ss</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> simulator(mu, sigma, batch_size<span class="op">=</span><span class="dv">1</span>, random_state<span class="op">=</span><span class="va">None</span>):</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    mu, sigma <span class="op">=</span> np.atleast_1d(mu, sigma)</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> ss.norm.rvs(mu[:, <span class="va">None</span>], sigma[:, <span class="va">None</span>], size<span class="op">=</span>(batch_size, <span class="dv">30</span>), random_state<span class="op">=</span>random_state)</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> mean(y):</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.mean(y, axis<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> var(y):</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.var(y, axis<span class="op">=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy.stats <span class="im">as</span> ss</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> simulator(mu, sigma, batch_size<span class="op">=</span><span class="dv">1</span>, random_state<span class="op">=</span><span class="va">None</span>):</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    mu, sigma <span class="op">=</span> np.atleast_1d(mu, sigma)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> ss.norm.rvs(mu[:, <span class="va">None</span>], sigma[:, <span class="va">None</span>], size<span class="op">=</span>(batch_size, <span class="dv">30</span>), random_state<span class="op">=</span>random_state)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> mean(y):</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.mean(y, axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> var(y):</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.var(y, axis<span class="op">=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p>Let’s now assume we have some observed data <code>y0</code> (here we just create some with the simulator):</p>
-<div class="cell" data-execution_count="18">
+<div class="cell" data-execution_count="4">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the generating parameters that we will try to infer</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>mean0 <span class="op">=</span> <span class="dv">1</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>std0 <span class="op">=</span> <span class="dv">3</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate some data (using a fixed seed here)</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">20170525</span>) </span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>y0 <span class="op">=</span> simulator(mean0, std0)</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(y0)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the generating parameters that we will try to infer</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>mean0 <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>std0 <span class="op">=</span> <span class="dv">3</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate some data (using a fixed seed here)</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">20170525</span>) </span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>y0 <span class="op">=</span> simulator(mean0, std0)</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(y0)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[[ 3.7990926   1.49411834  0.90999905  2.46088006 -0.10696721  0.80490023
@@ -280,58 +302,61 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 <p>Now we have all the components needed. Let’s complete our model by adding the simulator, the observed data, summaries and a distance to our model:</p>
-<div class="cell" data-execution_count="19">
+<div class="cell" data-execution_count="5">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Add the simulator node and observed data to the model</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>sim <span class="op">=</span> elfi.Simulator(simulator, mu, sigma, observed<span class="op">=</span>y0)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Add summary statistics to the model</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>S1 <span class="op">=</span> elfi.Summary(mean, sim)</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>S2 <span class="op">=</span> elfi.Summary(var, sim)</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Specify distance as euclidean between summary vectors (S1, S2) from simulated and</span></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co"># observed data</span></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>d <span class="op">=</span> elfi.Distance(<span class="st">'euclidean'</span>, S1, S2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Add the simulator node and observed data to the model</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>sim <span class="op">=</span> elfi.Simulator(simulator, mu, sigma, observed<span class="op">=</span>y0)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Add summary statistics to the model</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>S1 <span class="op">=</span> elfi.Summary(mean, sim)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>S2 <span class="op">=</span> elfi.Summary(var, sim)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Specify distance as euclidean between summary vectors (S1, S2) from simulated and</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="co"># observed data</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>d <span class="op">=</span> elfi.Distance(<span class="st">'euclidean'</span>, S1, S2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p>If you have <code>graphviz</code> installed to your system, you can also visualize the model:</p>
-<div class="cell" data-execution_count="20">
+<div class="cell" data-execution_count="6">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the complete model (requires graphviz)</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>elfi.draw(d)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the complete model (requires graphviz)</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>elfi.draw(d)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="20">
+<div class="cell-output cell-output-display" data-execution_count="6">
 <p><img src="quickstart_files/figure-html/cell-7-output-1.svg" class="img-fluid"></p>
 </div>
 </div>
 <p>.. Note:: The automatic naming of nodes may not work in all environments e.g.&nbsp;in interactive Python shells. You can alternatively provide a name argument for the nodes, e.g.&nbsp;<code>S1 = elfi.Summary(mean, sim, name='S1')</code>.</p>
 <p>We can try to infer the true generating parameters <code>mean0</code> and <code>std0</code> above with any of ELFI’s inference methods. Let’s use ABC Rejection sampling and sample 1000 samples from the approximate posterior using threshold value 0.5:</p>
-<div class="cell" data-execution_count="21">
+<div class="cell" data-execution_count="7">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>rej <span class="op">=</span> elfi.Rejection(d, batch_size<span class="op">=</span><span class="dv">10000</span>, seed<span class="op">=</span><span class="dv">30052017</span>)</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>res <span class="op">=</span> rej.sample(<span class="dv">1000</span>, threshold<span class="op">=</span><span class="fl">.5</span>)</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(res)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>rej <span class="op">=</span> elfi.Rejection(d, batch_size<span class="op">=</span><span class="dv">10000</span>, seed<span class="op">=</span><span class="dv">30052017</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>res <span class="op">=</span> rej.sample(<span class="dv">1000</span>, threshold<span class="op">=</span><span class="fl">.5</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(res)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>Progress [==================================================] 100.0% Complete
+<pre><code>Progress [===-----------------------------------------------] 7.1% CompleteProgress [=======-------------------------------------------] 15.4% CompleteProgress [============--------------------------------------] 25.0% CompleteProgress [================----------------------------------] 33.3% Complete</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Progress [====================------------------------------] 41.7% CompleteProgress [=======================---------------------------] 46.2% CompleteProgress [=============================---------------------] 58.3% CompleteProgress [=================================-----------------] 66.7% CompleteProgress [=====================================-------------] 75.0% CompleteProgress [=========================================---------] 83.3% CompleteProgress [=============================================-----] 91.7% CompleteProgress [==================================================] 100.0% Complete
 Method: Rejection
 Number of samples: 1000
-Number of simulations: 130000
-Threshold: 0.481
-Sample means: _prior_8336: 0.718, _prior_9a96: -0.0234, _prior_f596: 3, _prior_ff70: 3.12, mu: 0.00722, sigma: 3.01
+Number of simulations: 120000
+Threshold: 0.492
+Sample means: mu: 0.748, sigma: 3.1
 </code></pre>
 </div>
 </div>
 <p>Let’s plot also the marginal distributions for the parameters:</p>
-<div class="cell" data-execution_count="22">
+<div class="cell" data-execution_count="8">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>res.plot_marginals()</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>res.plot_marginals()</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
 <p><img src="quickstart_files/figure-html/cell-9-output-1.png" class="img-fluid"></p>
