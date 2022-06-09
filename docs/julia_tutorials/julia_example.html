@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="David Mawdsley">
-<meta name="dcterms.date" content="2022-05-31">
+<meta name="dcterms.date" content="2022-06-01">
 
-<title>Tutorial test using Quarto - Python Notebook demo</title>
+<title>Tutorial test using Quarto - Julia / Quarto example</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -157,10 +157,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a>
+  <li><a href="#julia-example" id="toc-julia-example" class="nav-link active" data-scroll-target="#julia-example">Julia example</a>
   <ul class="collapse">
-  <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup">Setup</a></li>
-  <li><a href="#example-coopihc-problem" id="toc-example-coopihc-problem" class="nav-link" data-scroll-target="#example-coopihc-problem">Example coopihc problem</a></li>
+  <li><a href="#parametric-plots" id="toc-parametric-plots" class="nav-link" data-scroll-target="#parametric-plots">Parametric Plots</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -170,7 +169,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Python Notebook demo</h1>
+<h1 class="title">Julia / Quarto example</h1>
 </div>
 
 
@@ -187,7 +186,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">May 31, 2022</p>
+      <p class="date">June 1, 2022</p>
     </div>
   </div>
     
@@ -196,75 +195,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<section id="introduction" class="level1">
-<h1>Introduction</h1>
-<p>This notebook uses a Jupyter notebook to produce this page. This was written/edited using vscode</p>
-<section id="setup" class="level2">
-<h2 class="anchored" data-anchor-id="setup">Setup</h2>
-<p>(Most of this is vscode specific)</p>
-<p>From the terminal create a virtual environment in the <code>python_tutorials</code> directory:</p>
-<pre class="{bash}"><code>python -m venv venv
-source venv/bin/activate</code></pre>
-<p>Install required modules:</p>
-<pre class="{bash}"><code>python -m pip install jupyter ipykernel jupyterlab</code></pre>
-<p>(restart vscode if you did the above in a vscode terminal)</p>
-<p>Load/create the notebook and set the notebook kernel to the vnenv you’ve created (button at the top right of the notebook)</p>
-</section>
-<section id="example-coopihc-problem" class="level2">
-<h2 class="anchored" data-anchor-id="example-coopihc-problem">Example coopihc problem</h2>
-<p>This is just cut and pasted from https://jgori-ouistiti.github.io/CoopIHC/guide/learning.html</p>
-<p>I couldn’t get most of the examples to work in the documentation</p>
-<div class="cell" data-execution_count="22">
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> coopihc.examples.simplepointing.envs <span class="im">import</span> SimplePointingTask</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> coopihc.examples.simplepointing.users <span class="im">import</span> CarefulPointer</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> coopihc.examples.simplepointing.assistants <span class="im">import</span> ConstantCDGain</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> coopihc <span class="im">import</span> State, Bundle</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>task <span class="op">=</span> SimplePointingTask(gridsize<span class="op">=</span><span class="dv">31</span>, number_of_targets<span class="op">=</span><span class="dv">8</span>)</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>unitcdgain <span class="op">=</span> ConstantCDGain(<span class="dv">1</span>)</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co"># The policy to be trained has the simple action set [-5,-4,-3,-2,-1,0,1,2,3,,4,5]</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>action_state <span class="op">=</span> State()</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>action_state[<span class="st">"action"</span>] <span class="op">=</span> discrete_array_element(low<span class="op">=-</span><span class="dv">5</span>, high<span class="op">=</span><span class="dv">5</span>)</span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>user <span class="op">=</span> CarefulPointer(override_policy<span class="op">=</span>(BasePolicy, {<span class="st">"action_state"</span>: action_state}))</span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>bundle <span class="op">=</span> Bundle(task<span class="op">=</span>task, user<span class="op">=</span>user, assistant<span class="op">=</span>unitcdgain, reset_go_to<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>observation <span class="op">=</span> bundle.reset()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
-<div class="cell" data-execution_count="23">
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(observation)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>----------------  -----------  -------------------------  -------------------
-game_info         turn_index   1                          CatSet(4) - int8
-                  round_index  0                          Numeric() - int64
-task_state        position     10                         Numeric() - int64
-                  targets      [ 1  5  7 13 14 15 19 22]  Numeric(8,) - int64
-user_state        goal         15                         Numeric() - int64
-user_action       action       0                          Numeric() - int64
-assistant_action  action       1                          CatSet(2) - int64
-----------------  -----------  -------------------------  -------------------</code></pre>
-</div>
-</div>
-<p>Link to run it in Binder:</p>
-<div id="fig-anonymous-1" class="quarto-figure quarto-figure-center anchored">
+<section id="julia-example" class="level1">
+<h1>Julia example</h1>
+<p>This uses the example from the <a href="https://www.quarto.org">Quarto homepage</a></p>
+<section id="parametric-plots" class="level2">
+<h2 class="anchored" data-anchor-id="parametric-plots">Parametric Plots</h2>
+<p>Plot function pair (x(u), y(u)). See <a href="#fig-parametric">Figure&nbsp;1</a> for an example.</p>
+<div class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Plots</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(sin, </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>     <span class="fu">x-&gt;sin</span>(<span class="fl">2</span>x), </span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>     <span class="fl">0</span>, </span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>     <span class="fl">2</span>π, </span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>     leg<span class="op">=</span><span class="cn">false</span>, </span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>     fill<span class="op">=</span>(<span class="fl">0</span>,<span class="op">:</span>lavender))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="2">
+<div id="fig-parametric" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><a href="https://mybinder.org/v2/gh/mawds/quarto-tutorial-site/HEAD?labpath=python_tutorials%2Fpython_example.ipynb"><img src="https://mybinder.org/badge_logo.svg" class="img-fluid figure-img"></a></p>
-<p></p><figcaption aria-hidden="true" class="figure-caption">Binder</figcaption><p></p>
+<p><img src="julia_example_files/figure-html/fig-parametric-output-1.svg" class="img-fluid figure-img"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">Figure 1: Parametric Plots</figcaption><p></p>
 </figure>
+</div>
+</div>
 </div>
 
 

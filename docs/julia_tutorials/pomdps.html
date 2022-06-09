@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="David Mawdsley">
-<meta name="dcterms.date" content="2022-05-31">
+<meta name="dcterms.date" content="2022-06-01">
 
-<title>Tutorial test using Quarto - Python Notebook demo</title>
+<title>Tutorial test using Quarto - POMDPs in Julia</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -157,11 +157,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a>
-  <ul class="collapse">
-  <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup">Setup</a></li>
-  <li><a href="#example-coopihc-problem" id="toc-example-coopihc-problem" class="nav-link" data-scroll-target="#example-coopihc-problem">Example coopihc problem</a></li>
-  </ul></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
   </ul>
 </nav>
     </div>
@@ -170,7 +166,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Python Notebook demo</h1>
+<h1 class="title">POMDPs in Julia</h1>
 </div>
 
 
@@ -187,7 +183,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">May 31, 2022</p>
+      <p class="date">June 1, 2022</p>
     </div>
   </div>
     
@@ -198,77 +194,74 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <section id="introduction" class="level1">
 <h1>Introduction</h1>
-<p>This notebook uses a Jupyter notebook to produce this page. This was written/edited using vscode</p>
-<section id="setup" class="level2">
-<h2 class="anchored" data-anchor-id="setup">Setup</h2>
-<p>(Most of this is vscode specific)</p>
-<p>From the terminal create a virtual environment in the <code>python_tutorials</code> directory:</p>
-<pre class="{bash}"><code>python -m venv venv
-source venv/bin/activate</code></pre>
-<p>Install required modules:</p>
-<pre class="{bash}"><code>python -m pip install jupyter ipykernel jupyterlab</code></pre>
-<p>(restart vscode if you did the above in a vscode terminal)</p>
-<p>Load/create the notebook and set the notebook kernel to the vnenv you’ve created (button at the top right of the notebook)</p>
-</section>
-<section id="example-coopihc-problem" class="level2">
-<h2 class="anchored" data-anchor-id="example-coopihc-problem">Example coopihc problem</h2>
-<p>This is just cut and pasted from https://jgori-ouistiti.github.io/CoopIHC/guide/learning.html</p>
-<p>I couldn’t get most of the examples to work in the documentation</p>
-<div class="cell" data-execution_count="22">
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> coopihc.examples.simplepointing.envs <span class="im">import</span> SimplePointingTask</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> coopihc.examples.simplepointing.users <span class="im">import</span> CarefulPointer</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> coopihc.examples.simplepointing.assistants <span class="im">import</span> ConstantCDGain</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> coopihc <span class="im">import</span> State, Bundle</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>task <span class="op">=</span> SimplePointingTask(gridsize<span class="op">=</span><span class="dv">31</span>, number_of_targets<span class="op">=</span><span class="dv">8</span>)</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>unitcdgain <span class="op">=</span> ConstantCDGain(<span class="dv">1</span>)</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co"># The policy to be trained has the simple action set [-5,-4,-3,-2,-1,0,1,2,3,,4,5]</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>action_state <span class="op">=</span> State()</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>action_state[<span class="st">"action"</span>] <span class="op">=</span> discrete_array_element(low<span class="op">=-</span><span class="dv">5</span>, high<span class="op">=</span><span class="dv">5</span>)</span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>user <span class="op">=</span> CarefulPointer(override_policy<span class="op">=</span>(BasePolicy, {<span class="st">"action_state"</span>: action_state}))</span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>bundle <span class="op">=</span> Bundle(task<span class="op">=</span>task, user<span class="op">=</span>user, assistant<span class="op">=</span>unitcdgain, reset_go_to<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>observation <span class="op">=</span> bundle.reset()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
-<div class="cell" data-execution_count="23">
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(observation)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
+<p>This is a longer Quarto document playing around with the POMDPs package in Julia to see how it works.</p>
+<p>Using the <a href="https://github.com/JuliaPOMDP/POMDPs.jl">quick start for POMDPs</a> as an example</p>
+<div class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">POMDPs</span>, <span class="bu">QuickPOMDPs</span>, <span class="bu">POMDPModelTools</span>, <span class="bu">POMDPSimulators</span>, <span class="bu">QMDP</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> <span class="fu">QuickPOMDP</span>(</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    states <span class="op">=</span> [<span class="st">"left"</span>, <span class="st">"right"</span>],</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    actions <span class="op">=</span> [<span class="st">"left"</span>, <span class="st">"right"</span>, <span class="st">"listen"</span>],</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    observations <span class="op">=</span> [<span class="st">"left"</span>, <span class="st">"right"</span>],</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    initialstate <span class="op">=</span> <span class="fu">Uniform</span>([<span class="st">"left"</span>, <span class="st">"right"</span>]),</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    discount <span class="op">=</span> <span class="fl">0.95</span>,</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    transition <span class="op">=</span> <span class="kw">function</span> (s, a)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> a <span class="op">==</span> <span class="st">"listen"</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="fu">Deterministic</span>(s) <span class="co"># tiger stays behind the same door</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span> <span class="co"># a door is opened</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="fu">Uniform</span>([<span class="st">"left"</span>, <span class="st">"right"</span>]) <span class="co"># reset</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">end</span>,</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    observation <span class="op">=</span> <span class="kw">function</span> (s, a, sp)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> a <span class="op">==</span> <span class="st">"listen"</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> sp <span class="op">==</span> <span class="st">"left"</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>                <span class="cf">return</span> <span class="fu">SparseCat</span>([<span class="st">"left"</span>, <span class="st">"right"</span>], [<span class="fl">0.85</span>, <span class="fl">0.15</span>]) <span class="co"># sparse categorical distribution</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>                <span class="cf">return</span> <span class="fu">SparseCat</span>([<span class="st">"right"</span>, <span class="st">"left"</span>], [<span class="fl">0.85</span>, <span class="fl">0.15</span>])</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>            <span class="cf">end</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="fu">Uniform</span>([<span class="st">"left"</span>, <span class="st">"right"</span>])</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>    <span class="kw">end</span>,</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>    reward <span class="op">=</span> <span class="kw">function</span> (s, a)</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> a <span class="op">==</span> <span class="st">"listen"</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="op">-</span><span class="fl">1.0</span></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>        <span class="cf">elseif</span> s <span class="op">==</span> a <span class="co"># the tiger was found</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="op">-</span><span class="fl">100.0</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span> <span class="co"># the tiger was escaped</span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="fl">10.0</span></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>    <span class="kw">end</span></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>solver <span class="op">=</span> <span class="fu">QMDPSolver</span>()</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>policy <span class="op">=</span> <span class="fu">solve</span>(solver, m)</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>rsum <span class="op">=</span> <span class="fl">0.0</span></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (s,b,a,o,r) <span class="kw">in</span> <span class="fu">stepthrough</span>(m, policy, <span class="st">"s,b,a,o,r"</span>, max_steps<span class="op">=</span><span class="fl">10</span>)</span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>    <span class="fu">println</span>(<span class="st">"s: </span><span class="sc">$</span>s<span class="st">, b: </span><span class="sc">$</span>([s<span class="op">=&gt;</span><span class="fu">pdf</span>(b,s) for s <span class="kw">in</span> <span class="fu">states</span>(m)])<span class="st">, a: </span><span class="sc">$</span>a<span class="st">, o: </span><span class="sc">$</span>o<span class="st">"</span>)</span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>    <span class="kw">global</span> rsum <span class="op">+=</span> r</span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="st">"Undiscounted reward was </span><span class="sc">$</span>rsum<span class="st">."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>----------------  -----------  -------------------------  -------------------
-game_info         turn_index   1                          CatSet(4) - int8
-                  round_index  0                          Numeric() - int64
-task_state        position     10                         Numeric() - int64
-                  targets      [ 1  5  7 13 14 15 19 22]  Numeric(8,) - int64
-user_state        goal         15                         Numeric() - int64
-user_action       action       0                          Numeric() - int64
-assistant_action  action       1                          CatSet(2) - int64
-----------------  -----------  -------------------------  -------------------</code></pre>
+<pre><code>s: right, b: ["left" =&gt; 0.5, "right" =&gt; 0.5], a: listen, o: right
+s: right, b: ["left" =&gt; 0.15, "right" =&gt; 0.85], a: listen, o: right
+s: right, b: ["left" =&gt; 0.0302013422818792, "right" =&gt; 0.9697986577181208], a: left, o: right
+s: left, b: ["left" =&gt; 0.5, "right" =&gt; 0.5], a: listen, o: left
+s: left, b: ["left" =&gt; 0.85, "right" =&gt; 0.15], a: listen, o: left
+s: left, b: ["left" =&gt; 0.9697986577181208, "right" =&gt; 0.0302013422818792], a: right, o: right
+s: right, b: ["left" =&gt; 0.5, "right" =&gt; 0.5], a: listen, o: right
+s: right, b: ["left" =&gt; 0.15, "right" =&gt; 0.85], a: listen, o: right
+s: right, b: ["left" =&gt; 0.0302013422818792, "right" =&gt; 0.9697986577181208], a: left, o: right
+s: right, b: ["left" =&gt; 0.5, "right" =&gt; 0.5], a: listen, o: right
+Undiscounted reward was 23.0.</code></pre>
 </div>
-</div>
-<p>Link to run it in Binder:</p>
-<div id="fig-anonymous-1" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><a href="https://mybinder.org/v2/gh/mawds/quarto-tutorial-site/HEAD?labpath=python_tutorials%2Fpython_example.ipynb"><img src="https://mybinder.org/badge_logo.svg" class="img-fluid figure-img"></a></p>
-<p></p><figcaption aria-hidden="true" class="figure-caption">Binder</figcaption><p></p>
-</figure>
 </div>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
