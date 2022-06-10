@@ -1,4 +1,6 @@
 /.quarto/
 .vscode/
 python_tutorials/venv/
+python_tutorials/.ipynb_checkpoints
+
 
